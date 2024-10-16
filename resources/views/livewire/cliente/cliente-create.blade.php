@@ -7,13 +7,13 @@
                 </div>
 
                 <div class="col-md-6">
-                    <x-adminlte-input type="text" wire:model="cpf" name="cpf" label="CPF" placeholder="CPF" label-class="required" enable-old-support autocomplete="off" />
+                    <x-adminlte-input type="text" wire:model="cpf" name="cpf" label="CPF" placeholder="CPF" label-class="required" enable-old-support autocomplete="off" x-mask="999.999.999-99" />
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="col-md-6">
-                    <x-adminlte-input type="phone" wire:model="telefone" name="telefone" label="Telefone" placeholder="Telefone" enable-old-support>
+                    <x-adminlte-input type="phone" wire:model="telefone" name="telefone" label="Telefone" placeholder="Telefone" enable-old-support x-mask="(99) 99999-9999">
                         <x-slot name="appendSlot">
                             <div class="input-group-text text-dark">
                                 <i class="fas fa-phone-alt"></i>
@@ -38,7 +38,7 @@
 
             <div class="form-row">
                 <div class="col-md-4">
-                    <x-adminlte-input type="text" wire:model="cep" name="cep" label="CEP" placeholder="CEP" enable-old-support />
+                    <x-adminlte-input type="text" wire:model="cep" name="cep" label="CEP" placeholder="CEP" enable-old-support x-mask="99999-999" />
                 </div>
 
                 <div class="col-md-4">
