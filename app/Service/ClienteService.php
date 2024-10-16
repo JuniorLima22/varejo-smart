@@ -19,9 +19,10 @@ class ClienteService
         $pesquisa = trim($pesquisa);
         $query = $this->cliente->query()
             ->when($pesquisa, function ($query) use ($pesquisa) {
-                return $query->where('nome', 'like', "%{$pesquisa}%")
-                    ->orWhere('cpf', 'like', "%{$pesquisa}%")
-                    ->orWhere('email', 'like', "%{$pesquisa}%");
+                return $query->where('nome', 'ilike', "%{$pesquisa}%")
+                    ->orWhere('cpf', 'ilike', "%{$pesquisa}%")
+                    ->orWhere('email', 'ilike', "%{$pesquisa}%")
+                    ->orWhere('telefone', 'ilike', "%{$pesquisa}%");
             });
 
         return $query;
