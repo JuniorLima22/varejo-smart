@@ -19,13 +19,13 @@ class ClienteRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules(int $clienteId = 0): array
     {
         $rules = [
-            'nome' => ['required', 'string', 'min:3', 'max:255', 'unique:clientes,nome'],
-            'cpf' => ['required', 'cpf', 'unique:clientes,cpf'],
+            'nome' => ['required', 'string', 'min:3', 'max:255', "unique:clientes,nome,{$clienteId},id"],
+            'cpf' => ['required', 'cpf', "unique:clientes,cpf,{$clienteId},id"],
             'telefone' => ['nullable', 'celular_com_ddd', 'max:20'],
-            'email' => ['required', 'email', 'min:5', 'unique:clientes,email'],
+            'email' => ['required', 'email', 'min:5', "unique:clientes,email,{$clienteId},id"],
             // 'sexo' => ['required', 'in:M,F'],
             
             'cep' => ['nullable', 'formato_cep'],
