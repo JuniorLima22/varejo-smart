@@ -8,6 +8,5 @@
 @stop
 
 @section('content')
-    cliente.edit - {{ $id }}
-    {{-- @livewire('cliente.edit', ['id' => $id]) --}}
+    @livewire('cliente.cliente-edit', ['id' => $id])
 @stop
