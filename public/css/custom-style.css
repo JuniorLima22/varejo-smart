@@ -1,0 +1,10 @@
+/* Adicionar asterisco (*) nos campos obrigatórios */
+.required:after {
+    content: " *";
+    color: #dc3545;
+}
+
+/* Ajustar z-index dos Toasts para sobrepor Modal que possui z-index (1050) */
+.toasts-top-right {
+    z-index: 2000;
+}

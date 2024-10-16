@@ -3,11 +3,11 @@
         <form wire:submit.prevent="store">
             <div class="form-row">
                 <div class="col-md-6">
-                    <x-adminlte-input type="text" wire:model="nome" name="nome" label="Nome" placeholder="Nome do Cliente" enable-old-support />
+                    <x-adminlte-input type="text" wire:model="nome" name="nome" label="Nome" placeholder="Nome do Cliente" label-class="required" enable-old-support />
                 </div>
 
                 <div class="col-md-6">
-                    <x-adminlte-input type="text" wire:model="cpf" name="cpf" label="CPF" placeholder="CPF" enable-old-support autocomplete="off" />
+                    <x-adminlte-input type="text" wire:model="cpf" name="cpf" label="CPF" placeholder="CPF" label-class="required" enable-old-support autocomplete="off" />
                 </div>
             </div>
 
@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <x-adminlte-input type="text" wire:model="email" name="email" label="E-mail" placeholder="E-mail" enable-old-support autocomplete="off">
+                    <x-adminlte-input type="text" wire:model="email" name="email" label="E-mail" placeholder="E-mail" label-class="required" enable-old-support autocomplete="off">
                         <x-slot name="appendSlot">
                             <div class="input-group-text text-dark">
                                 <i class="fas fa-at"></i>
@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <x-adminlte-input type="text" wire:model="logradouro" name="logradouro" label="Rua" placeholder="Rua" enable-old-support />
+                    <x-adminlte-input type="text" wire:model="logradouro" name="logradouro" label="Rua" placeholder="Rua" label-class="required" enable-old-support />
                 </div>
 
                 <div class="col-md-4">
@@ -52,11 +52,11 @@
 
             <div class="form-row">
                 <div class="col-md-4">
-                    <x-adminlte-input type="text" wire:model="cidade" name="cidade" label="Cidade" placeholder="Cidade" enable-old-support />
+                    <x-adminlte-input type="text" wire:model="cidade" name="cidade" label="Cidade" placeholder="Cidade" label-class="required" enable-old-support />
                 </div>
 
                 <div class="col-md-4">
-                    <x-adminlte-input type="text" wire:model="bairro" name="bairro" label="Bairro" placeholder="Bairro" enable-old-support />
+                    <x-adminlte-input type="text" wire:model="bairro" name="bairro" label="Bairro" placeholder="Bairro" label-class="required" enable-old-support />
                 </div>
 
                 <div class="col-md-4">
