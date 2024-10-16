@@ -16,14 +16,14 @@ class ClienteEdit extends Component
     public int $clienteId;
     public string $nome;
     public string $cpf;
-    public string $telefone;
+    public ?string $telefone;
     public string $email;
-    public string $cep;
+    public ?string $cep;
     public string $logradouro;
-    public string $numero;
+    public ?string $numero;
     public string $cidade;
     public string $bairro;
-    public string $complemento;
+    public ?string $complemento;
 
     public function boot(ClienteService $clienteService): void
     {
