@@ -10,6 +10,5 @@
 @stop
 
 @section('content')
-    cliente.index
-    {{-- @livewire('cliente.index') --}}
+    @livewire('cliente.cliente-index')
 @stop
