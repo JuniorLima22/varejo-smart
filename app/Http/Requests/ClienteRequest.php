@@ -23,12 +23,12 @@ class ClienteRequest extends FormRequest
     {
         $rules = [
             'nome' => ['required', 'string', 'min:3', 'max:255', 'unique:clientes,nome'],
-            'cpf' => ['required', 'string', 'size:14', 'unique:clientes,cpf'],
-            'telefone' => ['nullable', 'string', 'max:20'],
+            'cpf' => ['required', 'cpf', 'unique:clientes,cpf'],
+            'telefone' => ['nullable', 'celular_com_ddd', 'max:20'],
             'email' => ['required', 'email', 'min:5', 'unique:clientes,email'],
             // 'sexo' => ['required', 'in:M,F'],
             
-            'cep' => ['nullable', 'string', 'size:10'],
+            'cep' => ['nullable', 'formato_cep'],
             'logradouro' => ['required', 'string', 'min:3', 'max:255'],
             'numero' => ['nullable', 'string', 'min:1', 'max:20'],
             // 'bairro' => ['required', 'exists:bairros,id'],
