@@ -22,4 +22,9 @@ class Categoria extends Model
     {
         return $this->belongsTo(Categoria::class, 'parent_id');
     }
+
+    public function produtos(): HasMany
+    {
+        return $this->hasMany(Produto::class);
+    }
 }
