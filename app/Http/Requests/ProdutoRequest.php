@@ -29,6 +29,7 @@ class ProdutoRequest extends FormRequest
             'categoria_id' => ['required', 'exists:categorias,id'],
             'quantidade' => ['required', 'integer', 'min:0'],
             'imagem_url' => ['nullable', 'string', 'min:3', 'max:255'],
+            'imagem_temporario' => ['nullable', 'image', 'mimes:png,jpg,webp', 'max:2048'],  // 2MB Max
         ];
 
         return $rules;

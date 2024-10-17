@@ -8,20 +8,21 @@ use App\Service\ProdutoService;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 
 class ProdutoCreate extends Component
 {
-    use Toast;
+    use Toast, WithFileUploads;
     protected ProdutoService $produtoService;
     protected CategoriaService $categoriaService;
 
     public string $nome;
     public string $descricao;
-    public float $preco_compra = 0.0;
-    public float $preco_venda = 0.0;
-    public int $quantidade = 0;
-    public string $imagem_url;
-    public string $imagem_temporary;
+    public float $preco_compra;
+    public float $preco_venda;
+    public int $quantidade;
+    public $imagem_url;
+    public $imagem_temporario;
     public int $categoria_id;
 
     public function boot(
@@ -40,14 +41,24 @@ class ProdutoCreate extends Component
     public function validationAttributes(): array
     {
         return [
-            'categoria_id'=> 'categoria',
-            'imagem_url'=> 'imagem',
+            'categoria_id' => 'categoria',
+            'imagem_temporario' => 'imagem',
         ];
     }
 
     public function store(): void
     {
-        $produto = $this->produtoService->cadastrar($this->validate());
+        $this->validate();
+        if (isset($this->imagem_temporario) && $this->imagem_temporario->isValid()) {
+            $path = $this->imagem_temporario->store('produto', 'public');
+
+            if (!$path)
+                $this->error('Erro ao fazer upload da imagem');
+
+            $this->imagem_url = $path;
+        }
+
+        $produto = $this->produtoService->cadastrar($this->all());
 
         if (!is_null($produto)) {
             $this->sucesso($this->registro_cadastrado);
