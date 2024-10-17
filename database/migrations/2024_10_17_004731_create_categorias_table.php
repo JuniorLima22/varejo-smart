@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->foreignId('parent_id')->nullable()->constrained('categorias')->onDelete('cascade');
+            $table->foreignId('parent_id')->nullable()->constrained('categorias');
             $table->timestamps();
         });
     }
