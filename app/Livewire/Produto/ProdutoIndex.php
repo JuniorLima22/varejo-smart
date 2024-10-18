@@ -3,6 +3,7 @@
 namespace App\Livewire\Produto;
 
 use App\Models\Produto;
+use App\Service\CategoriaService;
 use App\Service\ProdutoService;
 use App\Traits\DataTable;
 use App\Traits\Modal;
@@ -18,13 +19,18 @@ class ProdutoIndex extends Component
     use DataTable, Modal, Toast;
 
     protected ProdutoService $produtoService;
+    protected CategoriaService $categoriaService;
     public Produto $produtoDetalhe;
     protected string $paginationTheme = 'bootstrap';
     public string $pesquisa = '';
+    public int $categoria_id = 0;
 
-    public function boot(ProdutoService $produtoService): void
-    {
+    public function boot(
+        ProdutoService $produtoService,
+        CategoriaService $categoriaService
+    ): void {
         $this->produtoService = $produtoService;
+        $this->categoriaService = $categoriaService;
     }
 
     public function updating(): void
@@ -61,11 +67,12 @@ class ProdutoIndex extends Component
 
     public function render(): View
     {
-        $produtos = $this->produtoService->listar($this->pesquisa)
+        $produtos = $this->produtoService->listar($this->pesquisa, $this->categoria_id)
             ->with('categoria')
             ->orderBy($this->classificarNomeColuna, $this->classificarDirecao)
             ->paginate($this->itemPorPagina());
 
-        return view('livewire.produto.produto-index', compact('produtos'));
+        $categorias = $this->categoriaService->listarComSubcategorias();
+        return view('livewire.produto.produto-index', compact('produtos', 'categorias'));
     }
 }

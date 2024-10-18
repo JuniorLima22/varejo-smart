@@ -8,7 +8,7 @@
 
                 <div class="col-md-6">
                     <x-adminlte-select wire:model="categoria_id" name="categoria_id" label="Categorias" label-class="required" enable-old-support>
-                        <option/>
+                        <option disabled>Selecione...</option>
                         @foreach ($categorias as $categoriaPai)
                             <optgroup label="{{ $categoriaPai->nome }}">
                                 @foreach ($categoriaPai->subcategorias as $subcategoria)

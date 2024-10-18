@@ -1,7 +1,7 @@
 <div>
     <x-adminlte-card class="shadow">
         <div class="form-row">
-            <div class="col-12">
+            <div class="col-md-6">
                 <x-adminlte-input type="search" wire:model.live.debounce.1000ms="pesquisa" name="pesquisa" label="Pesquisar" placeholder="Pesquisar por Nome ou Descrição do Produto" autocomplete="off" enable-old-support>
                     <x-slot name="appendSlot">
                         <div class="input-group-text text-dark">
@@ -9,6 +9,19 @@
                         </div>
                     </x-slot>
                 </x-adminlte-input>
+            </div>
+
+            <div class="col-md-6">
+                <x-adminlte-select wire:model.live="categoria_id" name="categoria_id" label="Categorias" label-class="required" enable-old-support>
+                    <option/>
+                    @foreach ($categorias as $categoriaPai)
+                        <optgroup label="{{ $categoriaPai->nome }}">
+                            @foreach ($categoriaPai->subcategorias as $subcategoria)
+                                <option value="{{ $subcategoria->id }}" @selected($subcategoria->id == $categoria_id)>{{ $subcategoria->nome }}</option>
+                            @endforeach
+                        </optgroup>
+                    @endforeach
+                </x-adminlte-select>
             </div>
         </div>
     </x-adminlte-card>
