@@ -14,14 +14,16 @@ class ProdutoService
     {
     }
 
-    public function listar(string $pesquisa = null): EloquentBuilder
+    public function listar(string $pesquisa = null, int $categoriaId): EloquentBuilder
     {
         $pesquisa = trim($pesquisa);
         $query = $this->produto->query()
             ->when($pesquisa, function ($query) use ($pesquisa) {
                 return $query->where('nome', 'ilike', "%{$pesquisa}%")
-                    ->orWhere('descricao', 'ilike', "%{$pesquisa}%")
-                    ->orWhere('categoria_id', (int)$pesquisa);
+                    ->orWhere('descricao', 'ilike', "%{$pesquisa}%");
+            })
+            ->when($categoriaId, function ($query) use ($categoriaId) {
+                return $query->where('categoria_id', $categoriaId);
             });
 
         return $query;

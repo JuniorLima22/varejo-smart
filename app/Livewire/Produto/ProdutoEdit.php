@@ -7,15 +7,17 @@ use App\Service\CategoriaService;
 use App\Service\ProdutoService;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 
-class ProdutoCreate extends Component
+class ProdutoEdit extends Component
 {
     use Toast, WithFileUploads;
     protected ProdutoService $produtoService;
     protected CategoriaService $categoriaService;
 
+    public int $produtoId;
     public string $nome;
     public string $descricao;
     public float $preco_compra;
@@ -33,9 +35,14 @@ class ProdutoCreate extends Component
         $this->categoriaService = $categoriaService;
     }
 
+    public function mount(int $id): void
+    {
+        $this->definirValoresPadroes($id);
+    }
+
     public function rules(): array
     {
-        return (new ProdutoRequest())->rules();
+        return (new ProdutoRequest())->rules($this->produtoId);
     }
 
     public function validationAttributes(): array
@@ -46,23 +53,48 @@ class ProdutoCreate extends Component
         ];
     }
 
-    public function store(): void
+    protected function definirValoresPadroes(int $produtoId)
     {
-        $this->validate();
-        if (isset($this->imagem_temporario) && $this->imagem_temporario->isValid()) {
-            $path = $this->imagem_temporario->store('produtos', 'public_storage');
+        $this->produtoId = $produtoId;
+        $produto = $this->produtoService->listarPorId($produtoId);
 
+        if (is_null($produto))
+            return redirect()->route('produto.index');
+
+        $this->fill(
+            $produto->only(
+                'nome',
+                'descricao',
+                'preco_compra',
+                'preco_venda',
+                'quantidade',
+                'imagem_url',
+                'categoria_id'
+            )
+        );
+    }
+
+    public function update(): void
+    {
+        if (isset($this->imagem_temporario) && $this->imagem_temporario->isValid()) {
+            if (!is_null($this->imagem_url))
+                Storage::disk('public_storage')->delete($this->imagem_url);
+            
+            $path = $this->imagem_temporario->store('produtos', 'public_storage');
+            
             if (!$path)
                 $this->error('Erro ao fazer upload da imagem');
-
+        
             $this->imagem_url = $path;
         }
-
-        $produto = $this->produtoService->cadastrar($this->all());
+    
+        $dados = $this->validate();
+        unset($dados['imagem_temporario']);
+        $produto = $this->produtoService->atualizar($dados, $this->produtoId);
 
         if (!is_null($produto)) {
             $this->sucesso($this->registro_cadastrado);
-            $this->reset();
+            $this->reset('imagem_temporario');
         } else {
             $this->error($this->registro_erro_cadastrar);
         }
@@ -71,6 +103,6 @@ class ProdutoCreate extends Component
     public function render(): View
     {
         $categorias = $this->categoriaService->listarComSubcategorias();
-        return view('livewire.produto.produto-create', compact('categorias'));
+        return view('livewire.produto.produto-edit', compact('categorias'));
     }
 }
