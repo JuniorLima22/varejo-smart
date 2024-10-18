@@ -50,7 +50,7 @@ class ProdutoCreate extends Component
     {
         $this->validate();
         if (isset($this->imagem_temporario) && $this->imagem_temporario->isValid()) {
-            $path = $this->imagem_temporario->store('produto', 'public');
+            $path = $this->imagem_temporario->store('produtos', 'public_storage');
 
             if (!$path)
                 $this->error('Erro ao fazer upload da imagem');
