@@ -76,9 +76,10 @@ class ProdutoEdit extends Component
 
     public function update(): void
     {
-        $this->validate();
         if (isset($this->imagem_temporario) && $this->imagem_temporario->isValid()) {
-            Storage::disk('public_storage')->delete($this->imagem_url);
+            if (!is_null($this->imagem_url))
+                Storage::disk('public_storage')->delete($this->imagem_url);
+            
             $path = $this->imagem_temporario->store('produtos', 'public_storage');
             
             if (!$path)
@@ -86,8 +87,10 @@ class ProdutoEdit extends Component
         
             $this->imagem_url = $path;
         }
-
-        $produto = $this->produtoService->atualizar($this->all(), $this->produtoId);
+    
+        $dados = $this->validate();
+        unset($dados['imagem_temporario']);
+        $produto = $this->produtoService->atualizar($dados, $this->produtoId);
 
         if (!is_null($produto)) {
             $this->sucesso($this->registro_cadastrado);
