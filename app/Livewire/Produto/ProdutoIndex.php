@@ -62,6 +62,7 @@ class ProdutoIndex extends Component
     public function render(): View
     {
         $produtos = $this->produtoService->listar($this->pesquisa)
+            ->with('categoria')
             ->orderBy($this->classificarNomeColuna, $this->classificarDirecao)
             ->paginate($this->itemPorPagina());
 

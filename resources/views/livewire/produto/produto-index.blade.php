@@ -102,7 +102,7 @@
                         <tr>
                             <td>{{ $produto->nome }}</td>
                             <td>{{ $produto->descricao }}</td>
-                            <td>{{ $produto->categoria_id }}</td>
+                            <td>{{ $produto->categoria->nome }}</td>
                             <td>{{ $produto->preco_compra }}</td>
                             <td>{{ $produto->preco_venda }}</td>
                             <td>{{ $produto->quantidade }}</td>
@@ -162,7 +162,7 @@
                 </tr>
                 <tr>
                     <th>Categoria:</th>
-                    <td>{{ $produtoDetalhe->categoria_id ?? '' }}</td>
+                    <td>{{ $produtoDetalhe->categoria->nome ?? '' }}</td>
                 </tr>
                 <tr>
                     <th>Preço de Compra:</th>
