@@ -67,6 +67,16 @@ class CarrinhoCreate extends Component
         session()->forget('carrinho_sessao');
     }
 
+    public function getTotalProperty(): float|int
+    {
+        $total = 0;
+        foreach ($this->carrinho as $item) {
+            $total += $item['preco'] * $item['quantidade'];
+        }
+
+        return $total;
+    }
+
     public function render(): View
     {
         return view('livewire.carrinho.carrinho-create');

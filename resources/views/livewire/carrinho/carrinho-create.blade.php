@@ -36,6 +36,13 @@
                     </tr>
                 @endforelse
             </tbody>
+            <tfoot>
+                <tr>
+                  <th scope="row">Total</th>
+                  <td colspan="2"></td>
+                  <td colspan="2">{{ formatar_moeda($this->total) }}</td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 
