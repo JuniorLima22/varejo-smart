@@ -4,12 +4,13 @@ namespace App\Livewire\Produto;
 
 use App\Service\ProdutoService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
 class ProdutoList extends Component
 {
     protected ProdutoService $produtoService;
-    public $produtos;
+    public Collection $produtos;
 
     public function boot(
         ProdutoService $produtoService,
