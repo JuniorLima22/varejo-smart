@@ -33,7 +33,7 @@ class Venda extends Model
 
     public function itens(): HasMany
     {
-        return $this->hasMany(ItensVenda::class);
+        return $this->hasMany(ItemVenda::class);
     }
 
     public function cupom(): BelongsTo
