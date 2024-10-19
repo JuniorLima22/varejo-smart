@@ -14,7 +14,7 @@ class ProdutoService
     {
     }
 
-    public function listar(string $pesquisa = null, int $categoriaId): EloquentBuilder
+    public function listar(string $pesquisa = null, int $categoriaId = 0): EloquentBuilder
     {
         $pesquisa = trim($pesquisa);
         $query = $this->produto->query()
