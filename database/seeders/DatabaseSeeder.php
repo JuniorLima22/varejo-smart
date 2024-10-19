@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             ClienteSeeder::class,
             CategoriaSeeder::class,
             ProdutoSeeder::class,
+            CupomSeeder::class,
         ]);
     }
 }

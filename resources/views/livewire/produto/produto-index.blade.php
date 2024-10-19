@@ -53,9 +53,10 @@
         </x-slot>
 
         <div class="table-responsive">
-            <table class="table table-hover table-striped table-bordered">
+            <table class="table table-hover table-striped table-valign-middle">
                 <thead>
                     <tr>
+                        <th class="text-center"><i class="fas fa-image"></i></th>
                         <th wire:click="ordenarPor('nome')" class="text-nowrap" role="button">
                             Nome
                             <span class="text-sm d-inline ml-2">
@@ -113,11 +114,22 @@
                 <tbody>
                     @forelse($produtos as $produto)
                         <tr>
-                            <td>{{ $produto->nome }}</td>
-                            <td>{{ $produto->descricao }}</td>
+                            <td>
+                                <div>
+                                    @if (!is_null($produto->imagem_url))
+                                        <img src="{{ asset('storage/' . $produto->imagem_url) }}" alt="{{ $produto->nome }}" class="rounded mx-auto" style="width: 100px; height: 150px;">
+                                    @else
+                                        <img src="{{ asset('img/default-150x150.webp') }}" alt="{{ $produto->nome }}" class="rounded mx-auto" style="width: 100px; height: 150px;">
+                                    @endif
+                                </div>
+                            </td>
+                            <td>
+                                {{ $produto->nome }}
+                            </td>
+                            <td>{{ mb_strimwidth($produto->descricao, 0, 100, "...") }}</td>
                             <td>{{ $produto->categoria->nome }}</td>
-                            <td>{{ $produto->preco_compra }}</td>
-                            <td>{{ $produto->preco_venda }}</td>
+                            <td class="text-center">{{ formatar_moeda($produto->preco_compra) }}</td>
+                            <td class="text-center">{{ formatar_moeda($produto->preco_venda) }}</td>
                             <td>{{ $produto->quantidade }}</td>
                             <td>{{ date('d/m/Y H:i:s', strtotime($produto->updated_at)) }}</td>
                             <td>
@@ -159,7 +171,7 @@
     </x-adminlte-card>
 
     <x-adminlte-modal id="modal_detalhe" title="Detalhes do Produto" size='lg' scrollable>
-        <table class="table table-sm table-hover">
+        <table class="table table-sm table-hover table-valign-middle">
             <tbody>
                 <tr>
                     <th>ID:</th>
@@ -179,11 +191,11 @@
                 </tr>
                 <tr>
                     <th>Preço de Compra:</th>
-                    <td>{{ $produtoDetalhe->preco_compra ?? '' }}</td>
+                    <td>{{ formatar_moeda($produtoDetalhe?->preco_compra) ?? '' }}</td>
                 </tr>
                 <tr>
                     <th>Preço de Venda:</th>
-                    <td>{{ $produtoDetalhe->preco_venda ?? '' }}</td>
+                    <td>{{ formatar_moeda($produtoDetalhe?->preco_venda) ?? '' }}</td>
                 </tr>
                 <tr>
                     <th>Qtd em Estoque:</th>
@@ -193,10 +205,12 @@
                     <th>Imagem do Produto:</th>
                     <td>
                         @if (!is_null($produtoDetalhe->imagem_url ?? null))
-                        <div>
-                            <img src="{{ asset('storage/' . $produtoDetalhe->imagem_url) }}" class="img-thumbnail rounded mx-auto mb-3 h-50">
-                        </div>
-                    @endif
+                            <div>
+                                <img src="{{ asset('storage/' . $produtoDetalhe->imagem_url) }}" class="img-thumbnail rounded mx-auto mb-3 h-50">
+                            </div>
+                        @else
+                            <img src="{{ asset('img/default-150x150.webp') }}" class="img-thumbnail rounded mx-auto mb-3 h-50">
+                        @endif
                     </td>
                 </tr>
                 <tr>
