@@ -14,5 +14,12 @@
 @stop
 
 @section('content')
-    @livewire('venda.venda-create')
+    <div class="row">
+        <div class="col-md-8">
+            @livewire('produto.produto-list')
+        </div>
+        <div class="col-md-4">
+            @livewire('carrinho.carrinho-create')
+        </div>
+    </div>
 @stop
