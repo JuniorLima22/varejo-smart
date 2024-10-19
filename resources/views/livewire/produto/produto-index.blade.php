@@ -204,10 +204,12 @@
                 <tr>
                     <th>Imagem do Produto:</th>
                     <td>
-                        @if (!is_null($produto->imagem_url))
-                            <img src="{{ asset('storage/' . $produto->imagem_url) }}" alt="{{ $produto->nome }}" class="rounded mx-auto" style="width: 100px; height: 150px;">
+                        @if (!is_null($produtoDetalhe->imagem_url ?? null))
+                            <div>
+                                <img src="{{ asset('storage/' . $produtoDetalhe->imagem_url) }}" class="img-thumbnail rounded mx-auto mb-3 h-50">
+                            </div>
                         @else
-                            <img src="{{ asset('img/default-150x150.webp') }}" alt="{{ $produto->nome }}" class="rounded mx-auto" style="width: 100px; height: 150px;">
+                            <img src="{{ asset('img/default-150x150.webp') }}" class="img-thumbnail rounded mx-auto mb-3 h-50">
                         @endif
                     </td>
                 </tr>
