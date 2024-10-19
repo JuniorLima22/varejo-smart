@@ -14,7 +14,7 @@
 
                         <p class="card-text">{{ formatar_moeda($produto->preco_venda) }}</p>
 
-                        <button type="button" wire:click="AdicionarAoCarrinho({{ $produto->id }})" wire:key="adicionar-carrinho-{{ $produto->id }}" title="Adicionar ao Carrinho" class="btn btn-outline-secondary">
+                        <button type="button" wire:click="AdicionarAoCarrinho({{ $produto->id }})" wire:key="adicionar-carrinho-{{ $produto->id }}" title="Adicionar ao Carrinho" class="btn btn-block btn-outline-secondary">
                             <i class="fa fa-lg fa-fw fa-cart-plus" wire:loading.remove wire:target="AdicionarAoCarrinho({{ $produto->id }})"></i>
                             <span wire:loading wire:target="AdicionarAoCarrinho({{ $produto->id }})">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
