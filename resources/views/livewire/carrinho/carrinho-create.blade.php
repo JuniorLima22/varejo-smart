@@ -8,7 +8,7 @@
                         <th>Produto</th>
                         <th>Qtd</th>
                         <th>Preço</th>
-                        <th>Total</th>
+                        <th colspan="2">Total</th>
                     </tr>
                 </thead>
                 <tbody>

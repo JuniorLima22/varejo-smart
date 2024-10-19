@@ -15,10 +15,10 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-7">
             @livewire('produto.produto-list')
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
             @livewire('carrinho.carrinho-create')
         </div>
     </div>
