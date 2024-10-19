@@ -19,7 +19,7 @@ class CupomService
         $pesquisa = trim($pesquisa);
         $query = $this->cupom->query()
             ->when($pesquisa, function ($query) use ($pesquisa) {
-                return $query->whereLike('codigo', "%{$pesquisa}%");
+                return $query->where('codigo', $pesquisa);
             });
 
         return $query;
