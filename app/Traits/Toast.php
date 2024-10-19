@@ -22,7 +22,7 @@ trait Toast
      * @param  bool    $autohide
      * @param  int     $delay
      */
-    private function toast(string $titulo, string $mensagem, string $tipo = null, string $icon = null, int $delay = null, bool $autohide = true): void
+    private function toast(string $titulo, string $mensagem, string $tipo = null, string $icon = null, int $delay = null, bool $autohide = true, string $position = 'topRight'): void
     {
         $json = json_encode([
             'title' => $titulo,
@@ -30,7 +30,8 @@ trait Toast
             'class' => $tipo ?? 'bg-success',
             'icon' => $this->icon($icon),
             'delay' => $delay ?? 5000,
-            'autohide' => $autohide ?? true
+            'autohide' => $autohide ?? true,
+            'position' => $position ?? 'topRight'
         ]);
 
         $this->js(
@@ -61,7 +62,7 @@ trait Toast
      * @param  int     $delay
      * @param  bool    $autohide
      */
-    public function sucesso(string $mensagem, string $icon = null, int $delay = null, bool $autohide = true): void
+    public function sucesso(string $mensagem, string $icon = null, int $delay = null, bool $autohide = true, string $position = 'topRight'): void
     {
         $this->toast(
             'Sucesso!',
@@ -70,6 +71,7 @@ trait Toast
             $icon ?? 'success',
             $delay,
             $autohide,
+            $position
         );
     }
 
@@ -81,7 +83,7 @@ trait Toast
      * @param  int     $delay
      * @param  bool    $autohide
      */
-    public function info(string $mensagem, string $icon = null, int $delay = null, bool $autohide = true): void
+    public function info(string $mensagem, string $icon = null, int $delay = null, bool $autohide = true, string $position = 'topRight'): void
     {
         $this->toast(
             'Informação!',
@@ -90,6 +92,7 @@ trait Toast
             $icon ?? 'info',
             $delay,
             $autohide,
+            $position,
         );
     }
 
@@ -101,7 +104,7 @@ trait Toast
      * @param  int     $delay
      * @param  bool    $autohide
      */
-    public function error(string $mensagem, string $icon = null, int $delay = null, bool $autohide = true): void
+    public function error(string $mensagem, string $icon = null, int $delay = null, bool $autohide = true, string $position = 'topRight'): void
     {
         $this->toast(
             'Erro!',
@@ -110,6 +113,7 @@ trait Toast
             $icon ?? 'error',
             $delay,
             $autohide,
+            $position,
         );
     }
 
@@ -121,7 +125,7 @@ trait Toast
      * @param  int     $delay
      * @param  bool    $autohide
      */
-    public function atencao(string $mensagem, string $icon = null, int $delay = null, bool $autohide = true): void
+    public function atencao(string $mensagem, string $icon = null, int $delay = null, bool $autohide = true, string $position = 'topRight'): void
     {
         $this->toast(
             'Atenção!',
@@ -130,6 +134,7 @@ trait Toast
             $icon ?? 'warning',
             $delay,
             $autohide,
+            $position,
         );
     }
 }
