@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('vendas', function (Blueprint $table): void {
             $table->id();
-            $table->string('codigo_venda', 10)->unique();
+            $table->string('codigo_venda', 50)->unique();
             $table->enum('status', ['pendente', 'pago', 'cancelado', 'enviado', 'concluido'])->default('pendente')->after('codigo_venda');
             $table->timestamp('data_venda');
             $table->decimal('total', 10, 2);
