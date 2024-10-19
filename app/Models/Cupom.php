@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cupom extends Model
 {
-    /** @use HasFactory<\Database\Factories\CupomFactory> */
     use HasFactory;
     
     protected $table = 'cupons';
@@ -18,4 +17,9 @@ class Cupom extends Model
         'validade',
         'ativo'
     ];
+
+    public function vendas(): HasMany
+    {
+        return $this->hasMany(Venda::class);
+    }
 }
