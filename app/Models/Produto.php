@@ -28,6 +28,6 @@ class Produto extends Model
 
     public function itensVenda(): HasMany
     {
-        return $this->hasMany(ItensVenda::class);
+        return $this->hasMany(ItemVenda::class);
     }
 }

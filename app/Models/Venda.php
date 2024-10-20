@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\StatusVendaEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,6 +22,28 @@ class Venda extends Model
         'data_envio_email'
     ];
 
+    protected $casts = [
+        'status' => StatusVendaEnum::class,
+    ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($venda): void {
+            $venda->codigo_venda = self::gerarCodigoVenda();
+        });
+    }
+
+    public static function gerarCodigoVenda(): string
+    {
+        do {
+            $codigo = 'VSM-' . strtoupper(uniqid());
+        } while (self::where('codigo_venda', $codigo)->exists());
+
+        return $codigo;
+    }
+
     public function cliente(): BelongsTo
     {
         return $this->belongsTo(Cliente::class);
@@ -33,11 +56,11 @@ class Venda extends Model
 
     public function itens(): HasMany
     {
-        return $this->hasMany(ItensVenda::class);
+        return $this->hasMany(ItemVenda::class);
     }
 
     public function cupom(): BelongsTo
-    { 
+    {
         return $this->belongsTo(Cupom::class);
     }
 }
