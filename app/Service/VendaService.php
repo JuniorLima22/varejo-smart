@@ -17,12 +17,15 @@ class VendaService
     ) {
     }
 
-    public function listar(string $pesquisa = null): EloquentBuilder
+    public function listar(string $pesquisa = null, string $status): EloquentBuilder
     {
         $pesquisa = trim($pesquisa);
         $query = $this->venda->query()
             ->when($pesquisa, function ($query) use ($pesquisa) {
-                return $query->where('codigo_venda', $pesquisa);
+                return $query->whereLike('codigo_venda', "%{$pesquisa}%");
+            })
+            ->when($status, function ($query) use ($status) {
+                return $query->where('status', $status);
             });
 
         return $query;
