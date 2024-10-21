@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Carrinho;
 
+use App\Mail\VendaConfirmacaoCompraMail;
 use App\Models\Cliente;
 use App\Service\ClienteService;
 use App\Service\CupomService;
@@ -9,6 +10,7 @@ use App\Service\ProdutoService;
 use App\Service\VendaService;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class CarrinhoCreate extends Component
@@ -156,6 +158,7 @@ class CarrinhoCreate extends Component
 
         if (!is_null($venda)) {
             // TODO: Enviar email de confirmação de compra realizada
+            Mail::to('noreply@varejosmart.com')->send(new VendaConfirmacaoCompraMail($venda->id));
             $this->sucesso('Compra realizada com sucesso!');
             $this->reset();
         } else {

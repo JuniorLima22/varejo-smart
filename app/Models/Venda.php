@@ -24,6 +24,7 @@ class Venda extends Model
 
     protected $casts = [
         'status' => StatusVendaEnum::class,
+        'data_venda' => 'datetime:Y-m-d',
     ];
 
     protected static function boot(): void
