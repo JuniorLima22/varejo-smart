@@ -31,7 +31,7 @@ class VendaConfirmacaoCompraMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Venda Confirmacao Compra Mail',
+            subject: 'Confirmação de Compra',
         );
     }
 
@@ -56,6 +56,6 @@ class VendaConfirmacaoCompraMail extends Mailable
      */
     public function attachments(): array
     {
-        return [1];
+        return [];
     }
 }
