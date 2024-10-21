@@ -162,7 +162,7 @@ Este projeto foi desenvolvido como um exemplo de sistema para otimização da ge
 
 ### Licenca
 
-O sistema All Blacks é um software de código aberto licenciado sob a [MIT license](http://opensource.org/licenses/MIT).
+O sistema Varejo Smart é um software de código aberto licenciado sob a [MIT license](http://opensource.org/licenses/MIT).
 
 ### Wakatime
 Tempo gasto no IDE para este repositório, rastreado automaticamente com [wakatime](https://wakatime.com/) .
