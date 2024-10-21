@@ -3,6 +3,8 @@
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\VendaController;
+use App\Mail\VendaConfirmacaoCompraMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
@@ -30,4 +32,5 @@ Route::controller(VendaController::class)->prefix('venda')->name('venda.')->grou
     Route::get('/', 'index')->name('index');
     Route::get('/cadastrar', 'create')->name('create');
     Route::get('/editar/{id}', 'edit')->name('edit');
+    Route::get('/acompanhar_pedido/{codigoVenda}', 'acompanharVenda')->name('acompanhar-venda');
 });

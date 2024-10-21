@@ -22,4 +22,9 @@ class VendaController extends Controller
     {
         return view("venda.edit", compact("id"));
     }
+
+    public function acompanharVenda($codigoVenda): View
+    {
+        return view("venda.acompanhar", compact("codigoVenda"));
+    }
 }
