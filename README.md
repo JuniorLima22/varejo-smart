@@ -1,3 +1,7 @@
+<p align="center" id="top">
+    <img alt="Readme" title="Readme GIF" src="./public/img/logo-vm.webp" />
+</p>
+
 
 # Sistema de Vendas para Estabelecimento Varejista
 
