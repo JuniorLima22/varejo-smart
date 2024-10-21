@@ -3,35 +3,37 @@
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\VendaController;
-use App\Mail\VendaConfirmacaoCompraMail;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
-use Illuminate\View\View;
 
-Route::get('/', function (): View {
-    return view('home');
+Route::get('/', function (): RedirectResponse {
+    return redirect()->route('venda.index');
 });
 
-Route::get('/welcome', function (): View {
-    return view('welcome');
+Route::get('/home', function (): RedirectResponse {
+    return redirect()->route('venda.index');
 });
 
-Route::controller(ClienteController::class)->prefix('cliente')->name('cliente.')->group(function (): void {
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->get('/dashboard', function (): RedirectResponse {
+    return redirect()->route('venda.index');
+});
+
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->controller(ClienteController::class)->prefix('cliente')->name('cliente.')->group(function (): void {
     Route::get('/', 'index')->name('index');
     Route::get('/cadastrar', 'create')->name('create');
     Route::get('/editar/{id}', 'edit')->name('edit');
 });
 
-Route::controller(ProdutoController::class)->prefix('produto')->name('produto.')->group(function (): void {
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->controller(ProdutoController::class)->prefix('produto')->name('produto.')->group(function (): void {
     Route::get('/', 'index')->name('index');
     Route::get('/cadastrar', 'create')->name('create');
     Route::get('/editar/{id}', 'edit')->name('edit');
 });
 
-Route::controller(VendaController::class)->prefix('venda')->name('venda.')->group(function (): void {
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->controller(VendaController::class)->prefix('venda')->name('venda.')->group(function (): void {
     Route::get('/', 'index')->name('index');
     Route::get('/cadastrar', 'create')->name('create');
     Route::get('/editar/{id}', 'edit')->name('edit');
 });
 
-Route::get('venda/acompanhar_pedido/{codigoVenda?}' , [VendaController::class, 'acompanharVenda'])->name('venda.acompanhar-venda');
+Route::get('venda/acompanhar_pedido/{codigoVenda?}', [VendaController::class, 'acompanharVenda'])->name('venda.acompanhar-venda');
