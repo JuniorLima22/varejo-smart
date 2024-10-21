@@ -32,5 +32,6 @@ Route::controller(VendaController::class)->prefix('venda')->name('venda.')->grou
     Route::get('/', 'index')->name('index');
     Route::get('/cadastrar', 'create')->name('create');
     Route::get('/editar/{id}', 'edit')->name('edit');
-    Route::get('/acompanhar_pedido/{codigoVenda}', 'acompanharVenda')->name('acompanhar-venda');
 });
+
+Route::get('venda/acompanhar_pedido/{codigoVenda?}' , [VendaController::class, 'acompanharVenda'])->name('venda.acompanhar-venda');
