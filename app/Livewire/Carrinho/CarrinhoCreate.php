@@ -133,7 +133,7 @@ class CarrinhoCreate extends Component
 
         $this->cupomId = $cupom->id;
         $this->desconto = $cupom->desconto_percentual;
-        $this->sucesso('Cupom aplicado com sucesso!');
+        $this->info("Cupom de {$cupom->desconto_percentual}% aplicado com sucesso!");
     }
 
     public function detalhesCliente(): void
@@ -176,6 +176,7 @@ class CarrinhoCreate extends Component
     public function render(): View
     {
         $clientes = $this->clienteService->listar()->orderBy('nome')->get();
-        return view('livewire.carrinho.carrinho-create', compact('clientes'));
+        $cupons = $this->cupomService->listar()->get('codigo');
+        return view('livewire.carrinho.carrinho-create', compact('clientes', 'cupons'));
     }
 }
