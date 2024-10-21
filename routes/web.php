@@ -10,6 +10,10 @@ Route::get('/', function (): RedirectResponse {
     return redirect()->route('venda.index');
 });
 
+Route::get('/home', function (): RedirectResponse {
+    return redirect()->route('venda.index');
+});
+
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->get('/dashboard', function (): RedirectResponse {
     return redirect()->route('venda.index');
 });
