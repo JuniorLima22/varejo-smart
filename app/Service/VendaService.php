@@ -61,6 +61,18 @@ class VendaService
         }
     }
 
+    public function listarPorCodigoVenda(string $codigoVenda): Venda|null
+    {
+        try {
+            return $this->venda->where('codigo_venda', trim($codigoVenda))
+                ->with('cliente', 'vendedor', 'itens.produto')
+                ->first();
+        } catch (Exception $e) {
+            Log::error("Erro ao listarPorId Venda: ", ['exception' => $e]);
+            return null;
+        }
+    }
+
     public function atualizar(array $dados, int $id): bool
     {
         try {
