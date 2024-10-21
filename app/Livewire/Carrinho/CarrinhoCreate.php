@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Carrinho;
 
+use App\Jobs\EnviarEmailVendaJob;
 use App\Models\Cliente;
 use App\Service\ClienteService;
 use App\Service\CupomService;
@@ -9,6 +10,7 @@ use App\Service\ProdutoService;
 use App\Service\VendaService;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class CarrinhoCreate extends Component
@@ -131,7 +133,7 @@ class CarrinhoCreate extends Component
 
         $this->cupomId = $cupom->id;
         $this->desconto = $cupom->desconto_percentual;
-        $this->sucesso('Cupom aplicado com sucesso!');
+        $this->info("Cupom de {$cupom->desconto_percentual}% aplicado com sucesso!");
     }
 
     public function detalhesCliente(): void
@@ -155,7 +157,7 @@ class CarrinhoCreate extends Component
         $venda = $this->vendaService->cadastrar($dados);
 
         if (!is_null($venda)) {
-            // TODO: Enviar email de confirmação de compra realizada
+            EnviarEmailVendaJob::dispatch($venda->id, $this->clienteDetalhe->email);
             $this->sucesso('Compra realizada com sucesso!');
             $this->reset();
         } else {
@@ -174,6 +176,7 @@ class CarrinhoCreate extends Component
     public function render(): View
     {
         $clientes = $this->clienteService->listar()->orderBy('nome')->get();
-        return view('livewire.carrinho.carrinho-create', compact('clientes'));
+        $cupons = $this->cupomService->listar()->get('codigo');
+        return view('livewire.carrinho.carrinho-create', compact('clientes', 'cupons'));
     }
 }

@@ -100,7 +100,12 @@
                 </x-slot>
                 <x-slot name="bottomSlot">
                     <span class="text-sm text-gray">
-                        Insira um código de cupom válido similar: <strong>CUP-LYEUZA</strong>
+                        Insira um código de cupom válido.
+                        @forelse ($cupons as $cupom)
+                            <strong>{{ $cupom->codigo }}</strong>@if(!$loop->last), @endif
+                        @empty
+                            <strong>CUP-LYEUZA</strong>
+                        @endforelse
                     </span>
                 </x-slot>
             </x-adminlte-input>
@@ -152,4 +157,12 @@
             FINALIZAR COMPRA
         </button>
     </x-adminlte-card>
+
+    @section('js')
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+    </script>
+    @stop
 </div>

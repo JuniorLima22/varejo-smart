@@ -17,7 +17,7 @@ class VendaService
     ) {
     }
 
-    public function listar(string $pesquisa = null, string $status): EloquentBuilder
+    public function listar(string $pesquisa = null, string $status = StatusVendaEnum::PENDENTE->value): EloquentBuilder
     {
         $pesquisa = trim($pesquisa);
         $query = $this->venda->query()
@@ -54,7 +54,7 @@ class VendaService
     public function listarPorId(int $id): Venda|null
     {
         try {
-            return $this->venda->findOrFail($id);
+            return $this->venda->with('cliente', 'vendedor', 'itens.produto')->findOrFail($id);
         } catch (Exception $e) {
             Log::error("Erro ao listarPorId Venda: ", ['exception' => $e]);
             return null;
